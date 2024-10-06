@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class gt {
+    static char[][] seats = new char[5][6];
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        initializeSeats();
+        while (true) {
+            displaySeats();
+            System.out.print("Enter row (0-4) and column (0-5) to book (b) or cancel (c): ");
+            String action = scanner.next();
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
+            if (action.equals("b")) bookSeat(row, col);
+            else if (action.equals("c")) cancelSeat(row, col);
+            else System.out.println("Invalid action.");
+        }
+    }
+
+    static void initializeSeats() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 6; j++) {
+                seats[i][j] = 'O'; // O for open
+            }
+        }
+    }
+
+    static void displaySeats() {
+        for (char[] row : seats) {
+            for (char seat : row) {
+                System.out.print(seat + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    static void bookSeat(int row, int col) {
+        if (seats[row][col] == 'O') {
+            seats[row][col] = 'X'; // X for booked
+            System.out.println("Seat booked.");
+        } else {
+            System.out.println("Seat already booked.");
+        }
+    }
+
+    static void cancelSeat(int row, int col) {
+        if (seats[row][col] == 'X') {
+            seats[row][col] = 'O'; // Reset to open
+            System.out.println("Seat canceled.");
+        } else {
+            System.out.println("Seat not booked.");
+        }
+    }
+}
